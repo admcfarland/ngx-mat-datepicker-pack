@@ -31,7 +31,7 @@
   ],
   "config": {
     "commitizen": {
-      "path": "@commitlint/prompt"
+      "path": "cz-conventional-changelog"
     }
   },
   "commitlint": {
@@ -61,11 +61,10 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-angular": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
-    "@commitlint/format": "^19.8.1",
-    "@commitlint/prompt": "^19.8.1",
     "@types/jasmine": "~5.1.0",
     "angular-eslint": "18.4.3",
     "commitizen": "^4.3.1",
+    "cz-conventional-changelog": "^3.3.0",
     "eslint": "^9.15.0",
     "eslint-plugin-no-loops": "^0.4.0",
     "husky": "^9.1.7",
