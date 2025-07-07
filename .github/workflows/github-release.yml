@@ -33,6 +33,7 @@ jobs:
           NEW_VERSION=$(npm version patch --no-git-tag-version)
           echo "New version: $NEW_VERSION"
           # Generate changelog
+          cd ..
           conventional-changelog -p angular -i CHANGELOG.md -s
           # Set outputs for later steps
           echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
@@ -40,7 +41,7 @@ jobs:
           # Commit changes
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add package.json CHANGELOG.md
+          git add ./demo/package.json CHANGELOG.md
           git commit -m "chore: release ${NEW_VERSION} re #4"
           git push
 
