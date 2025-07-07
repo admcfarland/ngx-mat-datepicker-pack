@@ -45,7 +45,7 @@ jobs:
           npx standard-version --skip.commit --skip.tag
 
           # Get new version
-          NEW_VERSION=$(node -p "require('./package.json').version")
+          NEW_VERSION=$(node -p "require('./demo/package.json').version")
           echo "New version: $NEW_VERSION"
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "tag_name=$NEW_VERSION" >> $GITHUB_OUTPUT
