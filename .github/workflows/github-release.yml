@@ -26,6 +26,9 @@ jobs:
         with:
           node-version: 'lts/*'
 
+      - name: Install dependencies
+        run: npm i conventional-changelog
+
       - name: Bump version and generate changelog
         id: version-bump
         run: |
