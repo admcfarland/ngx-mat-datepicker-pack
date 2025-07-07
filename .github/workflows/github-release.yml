@@ -1,38 +1,34 @@
 name: Release
+
 on:
   push:
     branches:
       - main
 
-permissions:
-  contents: read # for checkout
-
 jobs:
   release:
-    name: Release
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # to be able to publish a GitHub release
-      issues: write # to be able to comment on released issues
-      pull-requests: write # to be able to comment on released pull requests
-      id-token: write # to enable use of OIDC for npm provenance
     steps:
-      - name: Checkout
+      - name: Checkout repository
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-      - name: Setup Node.js
+
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: "lts/*"
-      - name: Install dependencies
-        run: npm clean-install
-        working-directory: ./demo
-      - name: Verify the integrity of provenance attestations and registry signatures for installed dependencies
-        run: npm audit signatures
-        working-directory: ./demo
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
-        working-directory: ./demo
+          node-version: 'lts/*'
+
+      - name: Create release
+        uses: ffurrer2/simple-release-action@v2
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          skip-npm: true  # this prevents publishing to npm
+          working-directory: ./demo
+          commit-message: 'chore: release v{{version}}'  # custom commit message
+          # Optional configuration (adjust as needed):
+          # release-branches: 'main'  # default is 'main,master'
+          # version-file: 'package.json'  # default is package.json
+          # version-path: 'version'  # if version is not at root of package.json
+          # tag-prefix: 'v'  # default is 'v' (creates tags like v1.0.0)
+          # changelog-path: 'CHANGELOG.md'  # default is CHANGELOG.md
