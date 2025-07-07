@@ -1,0 +1,8 @@
+#!/bin/sh
+# Update CHANGELOG.md using conventional-changelog
+
+npx conventional-changelog -p angular -i ../CHANGELOG.md -s
+
+# Commit changes
+git ../CHANGELOG.md
+git commit -m "docs(changelog): update changelog #4"

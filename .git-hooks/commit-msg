@@ -1,5 +1,5 @@
 #!/bin/sh
-
 # Navigate to repo root first
 REPO_ROOT=$(git rev-parse --show-toplevel)
+
 "$REPO_ROOT/demo/node_modules/.bin/commitlint" --config $REPO_ROOT/demo/commitlint.config.js --edit "$1"
