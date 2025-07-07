@@ -1,4 +1,0 @@
-# npm test
-
-echo > "hi"
-exit 1
