@@ -3,7 +3,7 @@ name: Release
 on:
   push:
     branches:
-      - main
+      - main  # or your default branch name
 
 jobs:
   release:
@@ -12,23 +12,42 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 0  # needed for full commit history
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
-      - name: Create release
-        uses: ffurrer2/simple-release-action@v1
+      - name: Bump version and generate changelog
+        id: version-bump
+        working-directory: ./demo
+        run: |
+          # Install conventional-changelog-cli if needed
+          npm install -g conventional-changelog-cli
+          # Bump version (example using npm)
+          NEW_VERSION=$(npm version patch --no-git-tag-version)
+          echo "New version: $NEW_VERSION"
+          # Generate changelog
+          conventional-changelog -p angular -i CHANGELOG.md -s
+          # Set outputs for later steps
+          echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+          echo "tag_name=v${NEW_VERSION}" >> $GITHUB_OUTPUT
+          # Commit changes
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git add package.json CHANGELOG.md
+          git commit -m "chore: release ${NEW_VERSION}"
+          git push
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        if: success()
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          skip-npm: true  # this prevents publishing to npm
-          working-directory: ./demo
-          commit-message: 'chore: release v{{version}}'  # custom commit message
-          # Optional configuration (adjust as needed):
-          # release-branches: 'main'  # default is 'main,master'
-          # version-file: 'package.json'  # default is package.json
-          # version-path: 'version'  # if version is not at root of package.json
-          # tag-prefix: 'v'  # default is 'v' (creates tags like v1.0.0)
-          # changelog-path: 'CHANGELOG.md'  # default is CHANGELOG.md
+          tag_name: ${{ steps.version-bump.outputs.tag_name }}
+          name: Release ${{ steps.version-bump.outputs.tag_name }}
+          body: |
+            See [CHANGELOG.md](CHANGELOG.md) for details.
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
