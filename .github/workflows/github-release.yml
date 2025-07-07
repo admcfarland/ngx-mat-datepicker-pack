@@ -28,14 +28,11 @@ jobs:
         id: version-bump
         working-directory: ./demo
         run: |
-          # Install conventional-changelog-cli if needed
-          npm install -g conventional-changelog-cli
           # Bump version (example using npm)
           NEW_VERSION=$(npm version patch --no-git-tag-version)
           echo "New version: $NEW_VERSION"
           # Generate changelog
-          cd ..
-          conventional-changelog -p angular -i CHANGELOG.md -s --commit-path ./demo
+          npx conventional-changelog -p angular -i CHANGELOG.md -s
           # Set outputs for later steps
           echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
           echo "tag_name=${NEW_VERSION}" >> $GITHUB_OUTPUT
