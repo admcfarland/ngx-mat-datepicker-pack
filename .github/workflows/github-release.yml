@@ -1,5 +1,5 @@
 # Action to update repository changelog, bump release versions and generate GitHub release tag.
-name: Changelog and GitHub Release
+name: Changelog|GitHub Release
 
 permissions:
   contents: write
