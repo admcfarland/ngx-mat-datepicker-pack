@@ -20,32 +20,41 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0  # needed for full commit history
-          fetch-tags: true
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 'lts/*'
 
+      - name: Install dependencies
+        run: npm install standard-version
+        working-directory: ./demo
+
       - name: Bump version and generate changelog
         id: version-bump
-        working-directory: ./demo
         run: |
-          # Bump version (example using npm)
+          # Initialize CHANGELOG.md if it doesn't exist
+          if [ ! -f CHANGELOG.md ]; then
+            echo "# Changelog" > CHANGELOG.md
+            git add CHANGELOG.md
+            git commit -m "docs: initialize changelog" || true
+          fi
+
+          # Change directory after creating CHANGELOG.md
+          cd ./demo
+          npx standard-version --skip.commit --skip.tag --release-as patch
+
+          # Get new version
           NEW_VERSION=$(npm version patch --no-git-tag-version)
           echo "New version: $NEW_VERSION"
-          # Generate changelog
-          cd ..
-          npm install --no-save conventional-changelog-cli conventional-changelog-angular
-          npx conventional-changelog -p angular -i CHANGELOG.md -s
-          # Set outputs for later steps
-          echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
-          echo "tag_name=${NEW_VERSION}" >> $GITHUB_OUTPUT
+          echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          echo "tag_name=$NEW_VERSION" >> $GITHUB_OUTPUT
+
           # Commit changes
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add ./demo/package.json CHANGELOG.md
-          git commit -m "chore: release ${NEW_VERSION} re #4"
+          git add package.json CHANGELOG.md
+          git commit -m "chore(release): $NEW_VERSION" || echo "No changes to commit"
           git push
 
       - name: Create GitHub Release
