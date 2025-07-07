@@ -26,34 +26,22 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Install dependencies
-        run: npm install standard-version
-        working-directory: ./demo
-
       - name: Bump version and generate changelog
         id: version-bump
         run: |
-          # Initialize CHANGELOG.md if it doesn't exist
-          if [ ! -f CHANGELOG.md ]; then
-            echo "# Changelog" > CHANGELOG.md
-            git add CHANGELOG.md
-            git commit -m "docs(changelog): initialize changelog" || true
-          fi
-
-          # Change directory after creating CHANGELOG.md
-          # cd ./demo
-          npx standard-version --skip.commit --skip.tag
-
-          # Get new version
-          NEW_VERSION=$(node -p "require('./package.json').version")
+          # Bump version
+          NEW_VERSION=$(npm version patch --no-git-tag-version)
           echo "New version: $NEW_VERSION"
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "tag_name=$NEW_VERSION" >> $GITHUB_OUTPUT
+          
+          # Generate CHANGELOG.md
+          npx conventional-changelog -p angular -i ../CHANGELOG.md -s
 
           # Commit changes
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add package.json CHANGELOG.md
+          git add package.json ../CHANGELOG.md
           git commit -m "chore(release): $NEW_VERSION" || echo "No changes to commit"
           git push
         working-directory: ./demo
