@@ -35,7 +35,7 @@ jobs:
           echo "New version: $NEW_VERSION"
           # Generate changelog
           cd ..
-          conventional-changelog -p angular -i CHANGELOG.md -s
+          conventional-changelog -p angular -i CHANGELOG.md -s --commit-path ./demo
           # Set outputs for later steps
           echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
           echo "tag_name=${NEW_VERSION}" >> $GITHUB_OUTPUT
