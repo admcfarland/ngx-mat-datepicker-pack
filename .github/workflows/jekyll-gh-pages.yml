@@ -34,13 +34,18 @@ jobs:
         run: npm ci
         working-directory: ./demo
       - name: Build Angular
-        run: npm run build -- --configuration=production
+        run: npm run build -- --configuration=production --base-href /ngx-mat-datepicker-pack/
         working-directory: ./demo
-      - name: Build with Jekyll
-        uses: actions/jekyll-build-pages@v1
-        with:
-          source: ./demo/dist/demo/browser
-          destination: ./_site
+      - name: Add .nojekyll
+        run: touch ./demo/dist/demo/browser/.nojekyll
+      - name: Create 404.html
+        run: cp index.html 404.html
+        working-directory: ./demo/dist/demo/browser
+#      - name: Build with Jekyll
+#        uses: actions/jekyll-build-pages@v1
+#        with:
+#          source: ./demo/dist/demo/browser
+#          destination: ./_site
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
 
