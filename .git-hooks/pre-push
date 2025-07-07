@@ -1,6 +1,6 @@
 #!/bin/sh
 # Update CHANGELOG.md using conventional-changelog
-
+npm i --no-save conventional-changelog-cli
 npx conventional-changelog -p angular -i ../CHANGELOG.md -s
 
 # Commit changes
