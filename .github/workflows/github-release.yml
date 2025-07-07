@@ -20,7 +20,7 @@ jobs:
           node-version: 'lts/*'
 
       - name: Create release
-        uses: ffurrer2/simple-release-action@v2
+        uses: ffurrer2/simple-release-action@v1
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           skip-npm: true  # this prevents publishing to npm
