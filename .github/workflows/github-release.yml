@@ -1,4 +1,5 @@
-name: Release
+# Action to update repository changelog, bump release versions and generate GitHub release tag.
+name: Changelog and GitHub Release
 
 permissions:
   contents: write
@@ -35,7 +36,7 @@ jobs:
           conventional-changelog -p angular -i CHANGELOG.md -s
           # Set outputs for later steps
           echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
-          echo "tag_name=v${NEW_VERSION}" >> $GITHUB_OUTPUT
+          echo "tag_name=${NEW_VERSION}" >> $GITHUB_OUTPUT
           # Commit changes
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
