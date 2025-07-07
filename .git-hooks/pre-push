@@ -4,5 +4,5 @@ npm i --no-save conventional-changelog-cli
 npx conventional-changelog -p angular -i ../CHANGELOG.md -s
 
 # Commit changes
-git ../CHANGELOG.md
+git add ../CHANGELOG.md
 git commit -m "docs(changelog): update changelog #4"
