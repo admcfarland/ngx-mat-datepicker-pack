@@ -27,7 +27,7 @@ jobs:
           node-version: 'lts/*'
 
       - name: Install dependencies
-        run: npm i conventional-changelog-cli
+        run: npm i conventional-changelog-angular
 
       - name: Bump version and generate changelog
         id: version-bump
