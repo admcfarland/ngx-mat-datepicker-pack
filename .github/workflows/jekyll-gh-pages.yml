@@ -35,6 +35,7 @@ jobs:
         working-directory: ./demo
       - name: Build Angular
         run: npm run build -- --configuration=production
+        working-directory: ./demo
       - name: Build with Jekyll
         uses: actions/jekyll-build-pages@v1
         with:
