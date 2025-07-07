@@ -43,7 +43,7 @@ jobs:
           # Commit changes
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add ./demo/package.json CHANGELOG.md
+          git add package.json CHANGELOG.md
           git commit -m "chore: release ${NEW_VERSION} re #4"
           git push
 
