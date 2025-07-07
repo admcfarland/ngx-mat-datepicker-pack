@@ -1,3 +1,7 @@
+## [0.0.1](https://github.com/admcfarland/ngx-mat-datepicker-pack/compare/v0.0.3...v0.0.1) (2025-07-07)
+
+
+
 #  (2025-07-07)
 
 
