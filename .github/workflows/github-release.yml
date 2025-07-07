@@ -37,7 +37,7 @@ jobs:
           if [ ! -f CHANGELOG.md ]; then
             echo "# Changelog" > CHANGELOG.md
             git add CHANGELOG.md
-            git commit -m "docs: initialize changelog" || true
+            git commit -m "docs(changelog): initialize changelog" || true
           fi
 
           # Change directory after creating CHANGELOG.md
@@ -45,7 +45,7 @@ jobs:
           npx standard-version --skip.commit --skip.tag
 
           # Get new version
-          NEW_VERSION=$(node -p "require('./demo/package.json').version")
+          NEW_VERSION=$(node -p "require('./package.json').version")
           echo "New version: $NEW_VERSION"
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "tag_name=$NEW_VERSION" >> $GITHUB_OUTPUT
@@ -56,6 +56,7 @@ jobs:
           git add package.json CHANGELOG.md
           git commit -m "chore(release): $NEW_VERSION" || echo "No changes to commit"
           git push
+        working-directory: ./demo
 
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
