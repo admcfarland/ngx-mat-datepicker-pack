@@ -17,11 +17,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
           package-name: "demo"
-          changelog-types: |
-            {"feat":{"title":"Features","semver":"minor"},"fix":{"title":"Bug Fixes","semver":"patch"},"docs":{"title":"Documentation","semver":"patch"},"chore":{"title":"Miscellaneous","semver":"patch"}}
           # This ensures we don't publish to npm
           # (release-please doesn't publish by default, but we make it explicit)
           bump-minor-pre-major: false
           bump-patch-for-minor-pre-major: false
-          # This will create a GitHub release when the PR is merged
-          release: true
