@@ -24,6 +24,7 @@ jobs:
 
       - name: Install dependencies
         run: npm i conventional-changelog-cli
+        working-directory: ./demo
       
       - run: |
           # Initialize CHANGELOG.md if it doesn't exist
