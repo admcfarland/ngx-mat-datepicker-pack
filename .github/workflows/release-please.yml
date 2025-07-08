@@ -10,6 +10,10 @@ on:
 jobs:
   release-please:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write      # Tags/commits
+      pull-requests: write
+      issues: write        # Labels
     steps:
       - uses: google-github-actions/release-please-action@v3
         id: release

@@ -25,12 +25,16 @@
 3. **Making commits**
 
    While you can manually write commit messages, it is highly recommended to use this script:
-
    ```bash
    npm run add-cz
    ```
 
    This will add all changed files and then guide you through a series of questions to help you compose a properly formatted commit message. This tool can only be access while within the same directory as the `package.json` file.
+
+   There is a version that also includes the `git push` portion:
+   ```bash
+   npm run add-cz-push
+   ```
 
 4. **Commit message requirements**
 
