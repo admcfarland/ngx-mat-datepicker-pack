@@ -1,6 +1,6 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
-[![Changelog | GitHub Release](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/github-release.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/github-release.yml)
+[![Release Please](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/release-please.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/release-please.yml)
 [![Deploy GitHub Pages](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/jekyll-gh-pages.yml)
 [![Node.js Package](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/npm-publish.yml)
 [![Stale | Close](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/stale-close.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/stale-close.yml)
@@ -24,13 +24,13 @@
 
 3. **Making commits**
 
-   While you can manually write commit messages, it is highly recommended to use the interactive commit tool:
+   While you can manually write commit messages, it is highly recommended to use this script:
 
    ```bash
-   npm run commit
+   npm run add-cz
    ```
 
-   This will guide you through a series of questions to help you compose a properly formatted commit message. This tool can only be access while within the same directory as the `package.json` file.
+   This will add all changed files and then guide you through a series of questions to help you compose a properly formatted commit message. This tool can only be access while within the same directory as the `package.json` file.
 
 4. **Commit message requirements**
 

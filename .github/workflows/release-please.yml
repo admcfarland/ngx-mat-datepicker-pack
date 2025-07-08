@@ -1,0 +1,23 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    types: [opened, synchronize]
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: node
+          package-name: "demo"
+          # This ensures we don't publish to npm
+          # (release-please doesn't publish by default, but we make it explicit)
+          bump-minor-pre-major: false
+          bump-patch-for-minor-pre-major: false

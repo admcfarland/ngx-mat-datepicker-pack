@@ -9,7 +9,9 @@
     "test": "ng test",
     "lint": "ng lint",
     "prepare": "git config --local core.hooksPath .git-hooks",
-    "commit": "cz"
+    "commit": "cz",
+    "add-cz": "git add -A && npm run commit",
+    "add-cz-push": "git add -A && npm run commit && git push"
   },
   "repository": {
     "type": "git",
