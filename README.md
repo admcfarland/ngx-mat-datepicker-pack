@@ -1,9 +1,8 @@
 [![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-%23FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)](http://commitizen.github.io/cz-cli/)
+[![Stale | Close](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/stale-close.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/stale-close.yml)
 [![Release Please](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/release-please.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/release-please.yml)
 [![Deploy GitHub Pages](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/jekyll-gh-pages.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/jekyll-gh-pages.yml)
-[![Node.js Package](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/npm-publish.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/npm-publish.yml)
-[![Stale | Close](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/stale-close.yml/badge.svg)](https://github.com/admcfarland/ngx-mat-datepicker-pack/actions/workflows/stale-close.yml)
 
 
 ## Getting Started
