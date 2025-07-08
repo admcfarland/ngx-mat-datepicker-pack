@@ -6,6 +6,14 @@
 
 
 
+## [0.0.4](https://github.com/admcfarland/ngx-mat-datepicker-pack/compare/v0.0.3...v0.0.4) (2025-07-08)
+
+
+### Miscellaneous Chores
+
+* release 0.0.4 [#16](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/16) ([130a20b](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/130a20b3009e58a9369689fa533bbca98a2b6ab3))
+* **release 0.0.4:** add permissions to release-please workflow ([e0bf4ae](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/e0bf4aea69e02549f9043d6561c1e76eb2a04655)), closes [#16](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/16)
+
 ## [0.0.1](https://github.com/admcfarland/ngx-mat-datepicker-pack/compare/v0.0.3...v0.0.1) (2025-07-07)
 
 
