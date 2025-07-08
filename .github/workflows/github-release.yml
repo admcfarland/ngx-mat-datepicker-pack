@@ -1,5 +1,5 @@
-# Action to update repository changelog, bump release versions and generate GitHub release tag.
-name: Changelog|GitHub Release
+# Action to bump release versions and generate GitHub release tag.
+name: GitHub Tag Release
 
 permissions:
   contents: write
@@ -26,10 +26,7 @@ jobs:
         with:
           node-version: 'lts/*'
 
-      - name: Install dependencies
-        run: npm i conventional-changelog-cli
-
-      - name: Bump version and generate changelog
+      - name: Bump version
         id: version-bump
         run: |
           # Bump version
@@ -37,14 +34,11 @@ jobs:
           echo "New version: $NEW_VERSION"
           echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
           echo "tag_name=$NEW_VERSION" >> $GITHUB_OUTPUT
-          
-          # Generate CHANGELOG.md
-          npx conventional-changelog -p angular -i ../CHANGELOG.md -s
 
           # Commit changes
           git config user.name "GitHub Actions"
           git config user.email "actions@github.com"
-          git add package.json ../CHANGELOG.md
+          git add package.json
           git commit -m "chore(release): $NEW_VERSION" || echo "No changes to commit"
           git push
         working-directory: ./demo
