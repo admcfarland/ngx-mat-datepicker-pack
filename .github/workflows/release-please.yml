@@ -16,12 +16,25 @@ jobs:
       issues: write        # Labels
     steps:
       - uses: google-github-actions/release-please-action@v3
-        id: release
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           release-type: node
           package-name: "demo"
-          # This ensures we don't publish to npm
-          # (release-please doesn't publish by default, but we make it explicit)
-          bump-minor-pre-major: false
-          bump-patch-for-minor-pre-major: false
+  npm-publish:
+    needs: release-please
+    runs-on: ubuntu-latest
+    if: github.event_name == 'release'  # Only run on release events
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          registry-url: 'https://registry.npmjs.org'
+      
+      - name: Install dependencies
+        run: npm ci  # Clean install for production
+      
+      - name: Publish to npm
+        run: npm publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}  # Required npm auth token
