@@ -6,6 +6,13 @@
 
 
 
+## [0.1.0](https://github.com/admcfarland/ngx-mat-datepicker-pack/compare/v0.0.4...v0.1.0) (2025-08-06)
+
+
+### Features
+
+* **unix-datepicker:** new unix-datepicker component for converting unix and javascript timestamps ([b5f70d7](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/b5f70d7c24654391d4b6b0ef343b76ba66c990a8)), closes [#25](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/25)
+
 ## [0.0.4](https://github.com/admcfarland/ngx-mat-datepicker-pack/compare/v0.0.3...v0.0.4) (2025-07-08)
 
 
