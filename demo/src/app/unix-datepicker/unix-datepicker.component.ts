@@ -22,12 +22,11 @@ function timestampLengthValidator(): ValidatorFn {
 }
 
 @Component({
-  selector: 'app-unix-datepicker',
-  standalone: true,
-  imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, CommonModule],
-  templateUrl: './unix-datepicker.component.html',
-  styleUrl: './unix-datepicker.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+    selector: 'app-unix-datepicker',
+    imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, CommonModule],
+    templateUrl: './unix-datepicker.component.html',
+    styleUrl: './unix-datepicker.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UnixDatepickerComponent {
   // Component inputs.

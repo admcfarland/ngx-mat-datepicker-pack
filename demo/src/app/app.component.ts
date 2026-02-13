@@ -4,8 +4,7 @@ import { UnixDatepickerComponent } from './unix-datepicker/unix-datepicker.compo
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, UnixDatepickerComponent],
+  imports: [UnixDatepickerComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
