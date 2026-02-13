@@ -6,6 +6,22 @@
 
 
 
+## [1.0.0](https://github.com/admcfarland/ngx-mat-datepicker-pack/compare/v0.0.4...v1.0.0) (2026-02-13)
+
+
+### ⚠ BREAKING CHANGES
+
+* New Angular version.
+
+### Features
+
+* **unix-datepicker:** new unix-datepicker component for converting unix and javascript timestamps ([b5f70d7](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/b5f70d7c24654391d4b6b0ef343b76ba66c990a8)), closes [#25](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/25)
+
+
+### Build System
+
+* update to Angular 19 ([cb960ab](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/cb960ab3e1a70498ecbc6cfce29d6cb9e10be784)), closes [#33](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/33)
+
 ## [0.0.4](https://github.com/admcfarland/ngx-mat-datepicker-pack/compare/v0.0.3...v0.0.4) (2025-07-08)
 
 
