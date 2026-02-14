@@ -1,21 +1,23 @@
 // @ts-check
-const eslint = require("@eslint/js");
-const tseslint = require("typescript-eslint");
-const angular = require("angular-eslint");
-const noloop = require("eslint-plugin-no-loops");
+import js from "@eslint/js";
+import tseslint from "typescript-eslint";
+import angular from "angular-eslint";
+import noloops from "eslint-plugin-no-loops";
+import { defineConfig } from 'eslint/config'
 
-module.exports = tseslint.config(
+export default defineConfig([
   {
     files: ["**/*.ts"],
     extends: [
-      eslint.configs.recommended,
+      js.configs.recommended,
       ...tseslint.configs.recommended,
       ...tseslint.configs.stylistic,
       ...angular.configs.tsRecommended,
     ],
     processor: angular.processInlineTemplates,
     plugins: {
-      noloop
+      "@typescript-eslint": tseslint.plugin,
+      noloops,
     },
     rules: {
       "@angular-eslint/directive-selector": [
@@ -34,18 +36,18 @@ module.exports = tseslint.config(
           style: "kebab-case",
         },
       ],
-      "@/semi": "error",
-      "@/quotes": [
+      "semi": "error",
+      "quotes": [
         "error",
         "single",
         {
           "avoidEscape": true,
-          "allowTemplateLiterals": true
-        }
+          "allowTemplateLiterals": true,
+        },
       ],
       "@typescript-eslint/no-explicit-any": "off",
       "no-console": "warn",
-      "noloops/no-loops": "error"
+      "noloops/no-loops": "error",
     },
   },
   {
@@ -56,4 +58,4 @@ module.exports = tseslint.config(
     ],
     rules: {},
   }
-);
+]);
