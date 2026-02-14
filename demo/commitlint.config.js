@@ -1,4 +1,4 @@
-module.exports = {
+const commitlintConfig = {
   extends: ['@commitlint/config-conventional'],
   "rules": {
     "references-empty": [2, "never"],
@@ -9,3 +9,4 @@ module.exports = {
     },
   },
 };
+export default commitlintConfig;

@@ -22,16 +22,16 @@ function timestampLengthValidator(): ValidatorFn {
 }
 
 @Component({
-    selector: 'app-unix-datepicker',
-    imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, CommonModule],
-    templateUrl: './unix-datepicker.component.html',
-    styleUrl: './unix-datepicker.component.scss',
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-unix-datepicker',
+  imports: [MatFormFieldModule, ReactiveFormsModule, MatInputModule, CommonModule],
+  templateUrl: './unix-datepicker.component.html',
+  styleUrl: './unix-datepicker.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UnixDatepickerComponent {
   // Component inputs.
   appearance = input<MatFormFieldAppearance>('fill');
-  label = input<string>('Unix')
+  label = input<string>('Unix');
   placeholder = input<string>('Enter 10 or 13 digit timestamp');
   useGMT = input(false, {
     transform: (v: string | boolean) => typeof v === 'string' ? v === 'true' : v
@@ -81,7 +81,7 @@ export class UnixDatepickerComponent {
       return 'Timestamp must be exactly 10 or 13 digits';
     }
     return '';
-  })
+  });
 
   protected readonly dateTimeString = computed(() => {
     // Fires when timestamp FormControl value changes.

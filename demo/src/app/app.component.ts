@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { UnixDatepickerComponent } from './unix-datepicker/unix-datepicker.component';
 
 @Component({
@@ -11,7 +10,7 @@ import { UnixDatepickerComponent } from './unix-datepicker/unix-datepicker.compo
 export class AppComponent {
   title = 'demo';
 
-  unixTimestampConversion: string = '';
+  unixTimestampConversion = '';
 
   updateDateTime(newDateTime: string): void {
     this.unixTimestampConversion = newDateTime;
