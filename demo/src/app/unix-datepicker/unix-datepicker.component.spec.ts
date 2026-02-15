@@ -47,29 +47,29 @@ describe('UnixDatepickerComponent with spectator', () => {
     vi.useRealTimers();
   });
 
-  // it('should show length error for wrong length', () => {
-  //   const control = spectator.component.timestampForm.controls.timestamp;
-  //   control.setValue('123456');
-  //   control.markAsTouched();
-  //   control.updateValueAndValidity();
-  //   expect(spectator.component.errorMessage()).toMatch(/10 or 13 digits/i);
-  // });
+  it('should show length error for wrong length', () => {
+    const control = spectator.component.timestampForm.controls.timestamp;
+    control.setValue('123456');
+    control.markAsTouched();
+    control.updateValueAndValidity();
+    expect(spectator.component.errorMessage()).toMatch('Timestamp must be exactly 10 or 13 digits');
+  });
 
-  // it('should not show error for valid 10-digit timestamp', () => {
-  //   const control = spectator.component.timestampForm.controls.timestamp;
-  //   control.setValue('1754039952');
-  //   control.markAsTouched();
-  //   control.updateValueAndValidity();
-  //   expect(spectator.component.errorMessage()).toBe('');
-  // });
+  it('should not show error for valid 10-digit timestamp', () => {
+    const control = spectator.component.timestampForm.controls.timestamp;
+    control.setValue('1754039952');
+    control.markAsTouched();
+    control.updateValueAndValidity();
+    expect(spectator.component.errorMessage()).toBe('');
+  });
 
-  // it('should not show error for valid 13-digit timestamp', () => {
-  //   const control = spectator.component.timestampForm.controls.timestamp;
-  //   control.setValue('1754039952000');
-  //   control.markAsTouched();
-  //   control.updateValueAndValidity();
-  //   expect(spectator.component.errorMessage()).toBe('');
-  // });
+  it('should not show error for valid 13-digit timestamp', () => {
+    const control = spectator.component.timestampForm.controls.timestamp;
+    control.setValue('1754039952000');
+    control.markAsTouched();
+    control.updateValueAndValidity();
+    expect(spectator.component.errorMessage()).toBe('');
+  });
 
   // it('should emit dateTimeOutput when valid timestamp is entered', () => {
   //   const emitSpy = vi.fn();
