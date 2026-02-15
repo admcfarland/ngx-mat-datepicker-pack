@@ -6,6 +6,8 @@ import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/fo
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime, map } from 'rxjs';
 
+const DEBOUNCE_TIME_MS = 250;
+
 // Custom length validator.
 function timestampLengthValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
@@ -36,7 +38,7 @@ export class UnixDatepickerComponent {
   useGMT = input(false, {
     transform: (v: string | boolean) => typeof v === 'string' ? v === 'true' : v
   });
-  debounce = input<number>(250);
+  debounce = input<number>(DEBOUNCE_TIME_MS);
   dateFormat = input<Intl.DateTimeFormatOptions>({
     dateStyle: 'medium'
   });
@@ -65,7 +67,7 @@ export class UnixDatepickerComponent {
   );
 
   // Computed signals.
-  protected readonly errorMessage = computed(() => {
+  readonly errorMessage = computed(() => {
     // Causes a recomputation.
     this._timestampSignal();
     this._controlStatus();
@@ -83,7 +85,7 @@ export class UnixDatepickerComponent {
     return '';
   });
 
-  protected readonly dateTimeString = computed(() => {
+  readonly dateTimeString = computed(() => {
     // Fires when timestamp FormControl value changes.
     const timestamp = this._timestampSignal();
     if (!timestamp) return '';
