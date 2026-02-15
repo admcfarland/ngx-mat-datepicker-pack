@@ -65,6 +65,7 @@
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@cypress/schematic": "^5.0.0",
+    "@ngneat/spectator": "20.0.0",
     "angular-eslint": "20.7.0",
     "axe-core": "^4.11.1",
     "commitizen": "^4.3.1",

@@ -65,7 +65,7 @@ export class UnixDatepickerComponent {
   );
 
   // Computed signals.
-  protected readonly errorMessage = computed(() => {
+  readonly errorMessage = computed(() => {
     // Causes a recomputation.
     this._timestampSignal();
     this._controlStatus();
@@ -83,7 +83,7 @@ export class UnixDatepickerComponent {
     return '';
   });
 
-  protected readonly dateTimeString = computed(() => {
+  readonly dateTimeString = computed(() => {
     // Fires when timestamp FormControl value changes.
     const timestamp = this._timestampSignal();
     if (!timestamp) return '';
