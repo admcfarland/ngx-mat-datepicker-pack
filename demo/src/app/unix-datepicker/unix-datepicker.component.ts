@@ -6,7 +6,7 @@ import { MatFormFieldModule, MatFormFieldAppearance } from '@angular/material/fo
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime, map } from 'rxjs';
 
-const DEBOUNCE_TIME_MS = 250;
+const DEBOUNCE_TIME_MS = 0;
 
 // Custom length validator.
 function timestampLengthValidator(): ValidatorFn {

@@ -2,8 +2,6 @@ import { describe, it, expect, beforeEach } from 'vitest';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { UnixDatepickerComponent } from './unix-datepicker.component';
 
-const DEBOUNCE_TIME_MS = 0;
-
 const VALID_TEN_DIGIT = '1771215930';
 const VALID_THIRTEEN_DIGIT = '1754039952000';
 
@@ -162,16 +160,9 @@ describe('UnixDatepickerComponent inputs (spectator)', () => {
 
 describe('UnixDatepickerComponent output (spectator)', () => {
   let spectator: Spectator<UnixDatepickerComponent>;
-  const createComponent = createComponentFactory({
-    component: UnixDatepickerComponent,
-    // detectChanges: false,
-  });
+  const createComponent = createComponentFactory(UnixDatepickerComponent);
 
-  beforeEach(() => {
-    spectator = createComponent({
-      props: { debounce: DEBOUNCE_TIME_MS }
-    });
-  });
+  beforeEach(() => spectator = createComponent());
 
   it('should emit unixDateOutput when valid timestamp is entered', async () => {
     let output;
@@ -212,13 +203,17 @@ describe('UnixDatepickerComponent output (spectator)', () => {
   });
 
   it('should not emit output if input is invalid', async () => {
+    vi.useFakeTimers();
     let emitted = false;
     spectator.output('unixDateOutput').subscribe(() => emitted = true);
     const control = spectator.component.timestampForm.controls.timestamp;
-    control.setValue('abc');
+
+    control.setValue(INVALID_ALPHA_ENTRY);
     control.markAsTouched();
     control.updateValueAndValidity();
-    await new Promise(res => setTimeout(res, 10));
+
+    await vi.runAllTimersAsync();
     expect(emitted).toBe(false);
+    vi.useRealTimers();
   });
 });
