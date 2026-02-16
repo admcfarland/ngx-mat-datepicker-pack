@@ -5,6 +5,14 @@ import { UnixDatepickerComponent } from './unix-datepicker.component';
 
 const DEBOUNCE_TIME_MS = 0;
 
+const VALID_TEN_DIGIT = '1771215930';
+const VALID_THIRTEEN_DIGIT = '1754039952000';
+
+const PARSED_VALID_TEN_DIGIT = parseInt(VALID_TEN_DIGIT, 10);
+
+const INVALID_ALPHA_ENTRY = 'abc';
+const INVALID_LENGTH_DIGIT = '123456';
+
 describe('UnixDatepickerComponent with spectator', () => {
   let spectator: Spectator<UnixDatepickerComponent>;
   const createComponent = createComponentFactory({
@@ -38,11 +46,11 @@ describe('UnixDatepickerComponent with spectator', () => {
   it('should show required error when 10-digit valud timestamp then delete one character then erase input', () => {
     const control = spectator.component.timestampForm.controls.timestamp;
 
-    control.setValue('1771215930');
+    control.setValue(VALID_TEN_DIGIT);
     control.markAsTouched();
     control.updateValueAndValidity();
 
-    control.setValue('177121593');
+    control.setValue(INVALID_LENGTH_DIGIT);
     control.updateValueAndValidity();
 
     control.setValue('');
@@ -53,7 +61,7 @@ describe('UnixDatepickerComponent with spectator', () => {
   it('should show pattern error for non-numeric input', () => {
     const control = spectator.component.timestampForm.controls.timestamp;
 
-    control.setValue('abc');
+    control.setValue(INVALID_ALPHA_ENTRY);
     control.markAsTouched();
     control.updateValueAndValidity();
 
@@ -63,7 +71,7 @@ describe('UnixDatepickerComponent with spectator', () => {
   it('should show length error for wrong length', () => {
     const control = spectator.component.timestampForm.controls.timestamp;
 
-    control.setValue('123456');
+    control.setValue(INVALID_LENGTH_DIGIT);
     control.markAsTouched();
     control.updateValueAndValidity();
 
@@ -73,7 +81,7 @@ describe('UnixDatepickerComponent with spectator', () => {
   it('should not show error for valid 10-digit timestamp', () => {
     const control = spectator.component.timestampForm.controls.timestamp;
 
-    control.setValue('1754039952');
+    control.setValue(VALID_TEN_DIGIT);
     control.markAsTouched();
     control.updateValueAndValidity();
 
@@ -83,7 +91,7 @@ describe('UnixDatepickerComponent with spectator', () => {
   it('should not show error for valid 13-digit timestamp', () => {
     const control = spectator.component.timestampForm.controls.timestamp;
 
-    control.setValue('1754039952000');
+    control.setValue(VALID_THIRTEEN_DIGIT);
     control.markAsTouched();
     control.updateValueAndValidity();
 
@@ -97,7 +105,7 @@ describe('UnixDatepickerComponent with spectator', () => {
     control.markAsTouched();
     control.updateValueAndValidity();
 
-    control.setValue('1771215930');
+    control.setValue(VALID_TEN_DIGIT);
     control.updateValueAndValidity();
 
     expect(spectator.component.errorMessage()).toBe('');
@@ -113,10 +121,9 @@ describe('UnixDatepickerComponent with spectator', () => {
       });
     });
 
-    const timestamp = '1771215930';
     const control = spectator.component.timestampForm.controls.timestamp;
 
-    control.setValue(timestamp);
+    control.setValue(VALID_TEN_DIGIT);
     control.markAsTouched();
     control.updateValueAndValidity();
 
@@ -133,15 +140,13 @@ describe('UnixDatepickerComponent with spectator', () => {
       });
     });
 
-    const timestamp = '1771215930';
-    const parsedTs = parseInt(timestamp, 10);
     const control = spectator.component.timestampForm.controls.timestamp;
 
-    control.setValue(timestamp);
+    control.setValue(VALID_TEN_DIGIT);
     control.markAsTouched();
     control.updateValueAndValidity();
 
     await promise;
-    expect(output).toEqual(new Date(parsedTs));
+    expect(output).toEqual(new Date(PARSED_VALID_TEN_DIGIT));
   });
 });
