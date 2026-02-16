@@ -1,6 +1,7 @@
 import { describe, it, expect, beforeEach } from 'vitest';
 import { createComponentFactory, Spectator } from '@ngneat/spectator';
 import { UnixDatepickerComponent } from './unix-datepicker.component';
+import { MatFormField } from '@angular/material/form-field';
 
 const VALID_TEN_DIGIT = '1771215930';
 const VALID_THIRTEEN_DIGIT = '1754039952000';
@@ -148,14 +149,12 @@ describe('UnixDatepickerComponent inputs (spectator)', () => {
     expect(label?.textContent).toContain('Test Label');
   });
 
-  // Figure out how to test with MatFormFieldHarness
-  // it('should render the correct appearance', () => {
-  //   spectator.setInput('appearance', 'outline');
-  //   spectator.detectChanges();
-  //   const formField = spectator.query('.mat-mdc-form-field');
-  //   console.log(formField);
-  //   expect(formField?.getAttribute('ng-reflect-appearance')).toBe('outline');
-  // });
+  it('should render the correct appearance', () => {
+    spectator.setInput('appearance', 'outline');
+    spectator.detectChanges();
+    const formField = spectator.query(MatFormField);
+    expect(formField?.appearance).toBe('outline');
+  });
 });
 
 describe('UnixDatepickerComponent output (spectator)', () => {
