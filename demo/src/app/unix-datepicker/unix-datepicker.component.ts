@@ -35,13 +35,7 @@ export class UnixDatepickerComponent {
   appearance = input<MatFormFieldAppearance>('fill');
   label = input<string>('Unix');
   placeholder = input<string>('Enter 10 or 13 digit timestamp');
-  useGMT = input(false, {
-    transform: (v: string | boolean) => typeof v === 'string' ? v === 'true' : v
-  });
   debounce = input<number>(DEBOUNCE_TIME_MS);
-  dateFormat = input<Intl.DateTimeFormatOptions>({
-    dateStyle: 'medium'
-  });
 
   // User input.
   timestampForm = new FormGroup({
@@ -85,29 +79,22 @@ export class UnixDatepickerComponent {
     return '';
   });
 
-  readonly dateTimeString = computed(() => {
+  readonly convertedDate = computed(() => {
     // Fires when timestamp FormControl value changes.
     const timestamp = this._timestampSignal();
     if (!timestamp) return '';
 
-    const date = new Date(timestamp);
-    return date.toLocaleString(
-      undefined,
-      {
-        ...this.dateFormat(),
-        timeZone: this.useGMT() ? 'GMT' : undefined
-      }
-    );
+    return new Date(timestamp);
   });
 
   // Component outputs.
-  dateTimeOutput = output<string>();
+  unixDateOutput = output<Date>();
 
   constructor() {
     effect(() => {
-      const dateString = this.dateTimeString();
+      const dateString = this.convertedDate();
       if (dateString) {
-        this.dateTimeOutput.emit(dateString);
+        this.unixDateOutput.emit(dateString);
       }
     });
   }

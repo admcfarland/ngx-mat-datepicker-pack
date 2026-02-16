@@ -1,9 +1,9 @@
 <div class="example-conversions-grid">
-  <div class="unix-converion-example">
+  <div>
+    <p>UNIX CONVERSION EXAMPLE</p>
     <div>
       <app-unix-datepicker
-        [dateFormat]="{ dateStyle: 'full', timeStyle: 'long' }"
-        (dateTimeOutput)="updateDateTime($event)">
+        (unixDateOutput)="unixOutput($event)">
       </app-unix-datepicker>
     </div>
     <div>
