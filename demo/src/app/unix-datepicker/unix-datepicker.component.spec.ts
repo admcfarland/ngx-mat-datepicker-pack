@@ -34,17 +34,11 @@ describe('UnixDatepickerComponent with spectator', () => {
   });
 
   it('should show pattern error for non-numeric input', () => {
-    vi.useFakeTimers();
-
     const control = spectator.component.timestampForm.controls.timestamp;
     control.setValue('abc');
     control.markAsTouched();
     control.updateValueAndValidity();
-
-    vi.advanceTimersByTime(DEBOUNCE_TIME_MS);
     expect(spectator.component.errorMessage()).toMatch('Timestamp must be a number');
-
-    vi.useRealTimers();
   });
 
   it('should show length error for wrong length', () => {
@@ -71,15 +65,15 @@ describe('UnixDatepickerComponent with spectator', () => {
     expect(spectator.component.errorMessage()).toBe('');
   });
 
-  // it('should emit dateTimeOutput when valid timestamp is entered', () => {
+  // it('should emit unixDateOutput when valid timestamp is entered', () => {
   //   const emitSpy = vi.fn();
-  //   spectator.component.dateTimeOutput.subscribe(emitSpy);
+  //   spectator.component.unixDateOutput.subscribe(emitSpy);
   //   const control = spectator.component.timestampForm.controls.timestamp;
   //   control.setValue('1754039952');
   //   control.markAsTouched();
   //   control.updateValueAndValidity();
   //   // Manually trigger the effect
-  //   spectator.component.dateTimeString();
+  //   spectator.component.convertedDate();
   //   expect(emitSpy).toHaveBeenCalled();
   //   expect(emitSpy.mock.calls[0][0]).toMatch(/20\d{2}/); // Should contain a year string
   // });
