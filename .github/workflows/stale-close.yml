@@ -16,7 +16,7 @@ jobs:
       issues: write
       pull-requests: write
     steps:
-      - uses: actions/stale@v9
+      - uses: actions/stale@v10
         with:
           days-before-issue-stale: 21 # Mark issues stale after 21 days of inactivity
           days-before-issue-close: 7 # Close issues 7 days after being marked stale
