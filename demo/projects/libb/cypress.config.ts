@@ -1,4 +1,4 @@
-import { defineConfig } from 'cypress'
+import { defineConfig } from 'cypress';
 
 export default defineConfig({
 
@@ -16,4 +16,4 @@ export default defineConfig({
     specPattern: '**/*.cy.ts'
   }
 
-})
+});
