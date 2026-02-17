@@ -57,5 +57,11 @@ export default defineConfig([
       ...angular.configs.templateAccessibility,
     ],
     rules: {},
+  },
+  {
+    files: ['cypress/support/**/*.ts', 'projects/libb/cypress/support/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }]
+    }
   }
 ]);
