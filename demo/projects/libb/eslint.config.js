@@ -1,5 +1,5 @@
 // @ts-check
-import rootConfig from '../../eslint.config';
+import rootConfig from '../../eslint.config.js';
 import { defineConfig } from 'eslint/config';
 
 export default defineConfig([
