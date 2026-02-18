@@ -1,6 +1,7 @@
 {
   "name": "libb",
   "version": "0.0.1",
+  "type": "module",
   "peerDependencies": {
     "@angular/common": "^18.2.0",
     "@angular/core": "^18.2.0"
