@@ -24,8 +24,8 @@
       "dom"
     ],
     "paths": {
-      "libb": [
-        "./dist/libb"
+      "ngx-mat-datepicker-pack": [
+        "./dist/ngx-mat-datepicker-pack"
       ],
       "test-lib": [
         "./dist/test-lib"

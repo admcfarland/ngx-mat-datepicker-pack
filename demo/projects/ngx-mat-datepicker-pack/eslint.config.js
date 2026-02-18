@@ -11,7 +11,7 @@ export default defineConfig([
         "error",
         {
           type: "attribute",
-          prefix: "lib",
+          prefix: "mdp",
           style: "camelCase",
         },
       ],
@@ -19,14 +19,21 @@ export default defineConfig([
         "error",
         {
           type: "element",
-          prefix: "lib",
+          prefix: "mdp",
           style: "kebab-case",
         },
       ],
+      "@angular-eslint/component-class-suffix": "off"
     },
   },
   {
     files: ["**/*.html"],
     rules: {},
+  },
+  {
+    files: ['cypress/support/**/*.ts', 'projects/ngx-mat-datepicker-pack/cypress/support/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }]
+    }
   }
 ]);
