@@ -30,7 +30,7 @@ function timestampLengthValidator(): ValidatorFn {
   styleUrl: './mdp-unix-datepicker.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class UnixDatepickerComponent {
+export class MdpUnixDatepicker {
   // Component inputs.
   appearance = input<MatFormFieldAppearance>('fill');
   label = input<string>('Unix');
