@@ -11,7 +11,7 @@ export default defineConfig([
         "error",
         {
           type: "attribute",
-          prefix: "lib",
+          prefix: "mdp",
           style: "camelCase",
         },
       ],
@@ -19,7 +19,7 @@ export default defineConfig([
         "error",
         {
           type: "element",
-          prefix: "lib",
+          prefix: "mdp",
           style: "kebab-case",
         },
       ],
