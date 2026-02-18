@@ -28,5 +28,11 @@ export default defineConfig([
   {
     files: ["**/*.html"],
     rules: {},
+  },
+  {
+    files: ['cypress/support/**/*.ts', 'projects/ngx-mat-datepicker-pack/cypress/support/**/*.ts'],
+    rules: {
+      '@typescript-eslint/no-namespace': ['error', { allowDeclarations: true }]
+    }
   }
 ]);

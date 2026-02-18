@@ -141,23 +141,23 @@
         }
       }
     },
-    "libb": {
+    "ngx-mat-datepicker-pack": {
       "projectType": "library",
-      "root": "projects/libb",
-      "sourceRoot": "projects/libb/src",
+      "root": "projects/ngx-mat-datepicker-pack",
+      "sourceRoot": "projects/ngx-mat-datepicker-pack/src",
       "prefix": "lib",
       "architect": {
         "build": {
           "builder": "@angular/build:ng-packagr",
           "options": {
-            "project": "projects/libb/ng-package.json"
+            "project": "projects/ngx-mat-datepicker-pack/ng-package.json"
           },
           "configurations": {
             "production": {
-              "tsConfig": "projects/libb/tsconfig.lib.prod.json"
+              "tsConfig": "projects/ngx-mat-datepicker-pack/tsconfig.lib.prod.json"
             },
             "development": {
-              "tsConfig": "projects/libb/tsconfig.lib.json"
+              "tsConfig": "projects/ngx-mat-datepicker-pack/tsconfig.lib.json"
             }
           },
           "defaultConfiguration": "production"
@@ -166,21 +166,21 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": [
-              "projects/libb/**/*.ts",
-              "projects/libb/**/*.html"
+              "projects/ngx-mat-datepicker-pack/**/*.ts",
+              "projects/ngx-mat-datepicker-pack/**/*.html"
             ],
-            "eslintConfig": "projects/libb/eslint.config.js"
+            "eslintConfig": "projects/ngx-mat-datepicker-pack/eslint.config.js"
           }
         },
         "cypress-run": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "libb:serve",
-            "configFile": "projects/libb/cypress.config.js"
+            "devServerTarget": "ngx-mat-datepicker-pack:serve",
+            "configFile": "projects/ngx-mat-datepicker-pack/cypress.config.js"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "libb:serve:production"
+              "devServerTarget": "ngx-mat-datepicker-pack:serve:production"
             }
           }
         },
@@ -189,33 +189,33 @@
           "options": {
             "watch": true,
             "headless": false,
-            "configFile": "projects/libb/cypress.config.js"
+            "configFile": "projects/ngx-mat-datepicker-pack/cypress.config.js"
           }
         },
         "ct": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "libb:serve",
+            "devServerTarget": "ngx-mat-datepicker-pack:serve",
             "watch": true,
             "headless": false,
             "testingType": "component"
           },
           "configurations": {
             "development": {
-              "devServerTarget": "libb:serve:development"
+              "devServerTarget": "ngx-mat-datepicker-pack:serve:development"
             }
           }
         },
         "e2e": {
           "builder": "@cypress/schematic:cypress",
           "options": {
-            "devServerTarget": "libb:serve",
+            "devServerTarget": "ngx-mat-datepicker-pack:serve",
             "watch": true,
             "headless": false
           },
           "configurations": {
             "production": {
-              "devServerTarget": "libb:serve:production"
+              "devServerTarget": "ngx-mat-datepicker-pack:serve:production"
             }
           }
         }
