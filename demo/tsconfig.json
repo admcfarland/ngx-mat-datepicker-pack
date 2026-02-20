@@ -26,9 +26,6 @@
     "paths": {
       "ngx-mat-datepicker-pack": [
         "./dist/ngx-mat-datepicker-pack"
-      ],
-      "test-lib": [
-        "./dist/test-lib"
       ]
     }
   },
