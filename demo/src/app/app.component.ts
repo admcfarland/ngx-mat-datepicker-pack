@@ -1,13 +1,13 @@
 import { Component, inject } from '@angular/core';
-import { UnixDatepickerComponent } from './unix-datepicker/unix-datepicker.component';
+import { MdpUnixDatepicker } from 'ngx-mat-datepicker-pack';
 import { DatePipe } from '@angular/common';
 
 @Component({
   selector: 'app-root',
-  imports: [UnixDatepickerComponent],
+  imports: [MdpUnixDatepicker],
   providers: [DatePipe],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
 export class AppComponent {
   // Title vars.
