@@ -47,8 +47,12 @@ export class UnixDatepickerComponent {
   });
 
   // Signal conversions.
+  private readonly _rawTimestampSignal = toSignal(
+    this.timestampForm.controls.timestamp.valueChanges.pipe(
+      debounceTime(this.debounce())
+    )
+  );
   private readonly _timestampSignal = toSignal(
-    // Explicit Observable dependency on which to create signal.
     this.timestampForm.controls.timestamp.valueChanges.pipe(
       debounceTime(this.debounce()),
       map(v => v && (v.length === 10 || v.length === 13) ? parseInt(v, 10) : undefined)
@@ -62,8 +66,8 @@ export class UnixDatepickerComponent {
 
   // Computed signals.
   readonly errorMessage = computed(() => {
-    // Causes a recomputation.
-    this._timestampSignal();
+    // Causes a recomputation on input change.
+    this._rawTimestampSignal();
     this._controlStatus();
     // Fires based on changes in error object of AbstractControl.
     const control = this.timestampForm.controls.timestamp;

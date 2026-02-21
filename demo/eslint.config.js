@@ -52,7 +52,7 @@ export default defineConfig([
         },
       ],
       "@typescript-eslint/no-explicit-any": "off",
-      "no-console": "warn",
+      "no-console": "error",
       "noloops/no-loops": "error",
     },
   },
