@@ -2,9 +2,19 @@
   <div>
     <p>UNIX CONVERSION EXAMPLE</p>
     <div>
-      <mdp-unix-datepicker
+      <!-- <mdp-unix-datepicker
         (unixDateOutput)="unixOutput($event)">
-      </mdp-unix-datepicker>
+      </mdp-unix-datepicker> -->
+      <!-- <mat-form-field appearance="outline">
+        <mat-label>Event Date</mat-label> -->
+        <app-unix-datepicker-3 [formControl]="dateControl"></app-unix-datepicker-3>
+        <!-- @if (dateControl.hasError('invalidTimestamp')) {
+          <mat-error>
+            Must be a 10 or 13 digit timestamp
+          </mat-error>
+        }
+        <mat-hint>Accepts seconds (10 digits) or milliseconds (13 digits)</mat-hint>
+      </mat-form-field> -->
     </div>
     <div>
       <p>Converted date: {{ unixTimestampConversion }}</p>
