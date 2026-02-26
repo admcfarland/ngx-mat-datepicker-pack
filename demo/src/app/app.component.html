@@ -5,19 +5,18 @@
       <!-- <mdp-unix-datepicker
         (unixDateOutput)="unixOutput($event)">
       </mdp-unix-datepicker> -->
-      <!-- <mat-form-field appearance="outline">
-        <mat-label>Event Date</mat-label> -->
+      <mat-form-field class="form-field">
+        <mat-label>Unix Timestamp</mat-label>
         <app-unix-datepicker-3 [formControl]="dateControl"></app-unix-datepicker-3>
-        <!-- @if (dateControl.hasError('invalidTimestamp')) {
-          <mat-error>
-            Must be a 10 or 13 digit timestamp
-          </mat-error>
+        @if (dateControl.hasError('invalidTimestamp')) {
+          <mat-error>Must be a 10 or 13 digit timestamp</mat-error>
         }
-        <mat-hint>Accepts seconds (10 digits) or milliseconds (13 digits)</mat-hint>
-      </mat-form-field> -->
+        <mat-hint>Input 10 or 13 digit timestamps</mat-hint>
+      </mat-form-field>
     </div>
     <div>
       <p>Converted date: {{ unixTimestampConversion }}</p>
+      <p>{{ dateControl.errors | json }}</p>
     </div>
   </div>
 </div>

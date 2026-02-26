@@ -1,16 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { MdpUnixDatepicker } from 'ngx-mat-datepicker-pack';
-import { DatePipe } from '@angular/common';
+import { DatePipe, JsonPipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { UnixDatepicker3Component } from './unix-datepicker-3/unix-datepicker-3.component';
-import { debounceTime } from 'rxjs';
+// import { debounceTime } from 'rxjs';
 
-const DEBOUNCE_TIME_MS = 0;
+// const DEBOUNCE_TIME_MS = 0;
 
 @Component({
   selector: 'app-root',
-  imports: [MdpUnixDatepicker, MatFormFieldModule, ReactiveFormsModule, UnixDatepicker3Component],
+  imports: [MdpUnixDatepicker, MatFormFieldModule, ReactiveFormsModule, UnixDatepicker3Component, JsonPipe],
   providers: [DatePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -30,9 +30,7 @@ export class AppComponent {
   dateControl = new FormControl<string>(this.current);
 
   constructor() {
-    this.dateControl.valueChanges.pipe(
-      debounceTime(DEBOUNCE_TIME_MS)
-    ).subscribe(dateStr =>
+    this.dateControl.valueChanges.subscribe(dateStr =>
       this.unixTimestampConversion = this._formatExampleOutput(dateStr)
     );
 
@@ -40,6 +38,9 @@ export class AppComponent {
     this._setInitialDates();
   }
 
+  /**
+   * Set initial demo values.
+   */
   private _setInitialDates(): void {
     this.unixTimestampConversion = this._formatExampleOutput(this.dateControl.value);
   }

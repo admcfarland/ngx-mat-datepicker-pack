@@ -1,4 +1,7 @@
-<input
+<input #inputRef
   [formControl]="internalControl"
+  [placeholder]="placeholder"
   type="text"
-  inputmode="numeric" />
+  inputmode="numeric"
+  (focus)="onFocus()"
+  (blur)="_onTouched(); onBlur()" />

@@ -1,5 +1,8 @@
-import { Component } from '@angular/core';
-import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
+import { FocusMonitor } from '@angular/cdk/a11y';
+import { Component, ElementRef, inject, Input, OnDestroy, ViewChild, OnInit } from '@angular/core';
+import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
+import { MatFormFieldControl } from '@angular/material/form-field';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-unix-datepicker-3',
@@ -8,25 +11,35 @@ import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR, ReactiveFormsModu
   styleUrl: './unix-datepicker-3.component.scss',
   providers: [
     {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: UnixDatepicker3Component,
-      multi: true,
-    }
+      provide: MatFormFieldControl,
+      useExisting: UnixDatepicker3Component
+    },
   ],
 })
-export class UnixDatepicker3Component implements ControlValueAccessor {
-  // Internal component value.
-  protected internalControl = new FormControl<string>('', { nonNullable: true });
+export class UnixDatepicker3Component implements ControlValueAccessor, MatFormFieldControl<Date>, OnDestroy, OnInit {
+  @ViewChild('inputRef') inputRef!: ElementRef<HTMLElement>;
 
-  // Component states.
+  // Internal component vars.
+  protected readonly internalControl = new FormControl<string>('', { nonNullable: true });
+  private _value: Date | null = null;
+
+  // Component state vars.
   private _touched = false;
+  focused = false;
+
+  // Accessibility vars.
+  private readonly focusMonitor = inject(FocusMonitor);
+  private readonly elementRef = inject(ElementRef<HTMLElement>);
 
   // ControlValueAccessor.
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected _onChange: (value: Date | null) => void = () => { };
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
   protected _onTouched: () => void = () => { };
 
   writeValue(parentGivenValue: string): void {
     this.internalControl.setValue(parentGivenValue);
+    this.stateChanges.next();
   }
 
   registerOnChange(fn: any): void {
@@ -42,11 +55,118 @@ export class UnixDatepicker3Component implements ControlValueAccessor {
     void (isDisabled ? this.internalControl.disable() : this.internalControl.enable());
   }
 
+  // MatFormFieldControl.
+  readonly stateChanges = new Subject<void>();
+
+  static nextId = 0;
+  readonly id = `unix-datepicker-${UnixDatepicker3Component.nextId++}`;
+
+  readonly ngControl = inject(NgControl, { optional: true, self: true });
+  readonly controlType = 'unix-datepicker';
+
+  get value(): Date | null {
+    return this._value;
+  }
+  get empty(): boolean {
+    return this.internalControl.value.length === 0;
+  }
+  get shouldLabelFloat(): boolean {
+    return this.focused || !this.empty;
+  }
+  get errorState(): boolean {
+    // console.log('this.ngControl:', this.ngControl?.invalid);
+    // console.log('this._touched:', this._touched);
+    return (this.ngControl?.invalid ?? false) && this._touched;
+  }
+
+  @Input()
+  get placeholder() {
+    return this._placeholder;
+  }
+  set placeholder(newPlaceholder) {
+    this._placeholder = newPlaceholder;
+    this.stateChanges.next();
+  }
+  private _placeholder = '10 or 13 digit unix timestamp';
+
+  @Input()
+  get required(): boolean {
+    return this._required;
+  }
+  set required(newRequired: boolean) {
+    this._required = newRequired;
+    this.stateChanges.next();
+  }
+  private _required = false;
+
+  @Input()
+  get disabled(): boolean {
+    return this._disabled;
+  }
+  set disabled(newDisabled: boolean) {
+    this._disabled = newDisabled;
+    this.setDisabledState(newDisabled);
+    this.stateChanges.next();
+  }
+  private _disabled = false;
+
+  setDescribedByIds(ids: string[]): void {
+    this.inputRef?.nativeElement.setAttribute('aria-describedby', ids.join(' '));
+  }
+
+  onContainerClick(): void {
+    this.inputRef?.nativeElement.focus();
+  }
+
   constructor() {
-    this.internalControl.valueChanges.subscribe(val => {
-      const parsed = this._parse(val);
+    this.internalControl.valueChanges.subscribe(value => {
+      const parsed = this._parse(value);
+      this._value = parsed;
       this._onChange(parsed);
+      this.stateChanges.next();
     });
+
+    // Replace the provider from above with this.
+    if (this.ngControl !== null) {
+      // Setting the value accessor directly (instead of using
+      // the providers) to avoid running into a circular import.
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.stateChanges.complete();
+    this.focusMonitor.stopMonitoring(this.elementRef);
+  }
+
+  ngOnInit(): void {
+    if (this.ngControl?.control) {
+      this.ngControl.control.addValidators(this._validate.bind(this));
+      this.ngControl.control.updateValueAndValidity();
+    }
+  }
+
+  protected onFocus() {
+    this.focused = true;
+    this.stateChanges.next();
+  }
+
+  protected onBlur() {
+    this._touched = true;
+    this.focused = false;
+    this._onTouched();
+    this.stateChanges.next();
+  }
+
+  private _validate(): ValidationErrors | null {
+    const raw = this.internalControl.value;
+    if (!raw) return null; // empty is handled by Validators.required if needed
+
+    if (!this._isValidTimestampString(raw)) {
+      return { invalidTimestamp: { value: raw, hint: 'Must be a 10 or 13 digit number' } };
+    }
+
+    return null;
   }
 
   /**
