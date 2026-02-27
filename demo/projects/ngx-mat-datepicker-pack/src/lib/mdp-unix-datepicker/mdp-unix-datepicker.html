@@ -1,16 +1,7 @@
-<div [formGroup]="timestampForm">
-  <mat-form-field
-    class="mdp-unix-form-field"
-    [appearance]="appearance()">
-    <mat-label>{{ label() }}</mat-label>
-    <input
-      matInput
-      formControlName="timestamp"
-      [placeholder]="placeholder()"
-      />
-    <mat-hint>Ex. 1754039952 or 1754039952000</mat-hint>
-    @if (errorMessage()) {
-      <mat-error>{{ errorMessage() }}</mat-error>
-    }
-  </mat-form-field>
-</div>
+<input #inputRef
+  [formControl]="internalControl"
+  [placeholder]="placeholder"
+  type="text"
+  inputmode="numeric"
+  (focus)="onFocus()"
+  (blur)="_onTouched(); onBlur()" />

@@ -1,3 +1,18 @@
-.mdp-unix-form-field {
+input {
+  border: none;
+  background: none;
+  padding: 0;
+  outline: none;
+  font: inherit;
+  color: currentColor;
   width: 100%;
+}
+
+:host {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+:host.floating {
+  opacity: 1;
 }

@@ -1,10 +1,16 @@
 import { Component, inject } from '@angular/core';
 import { MdpUnixDatepicker } from 'ngx-mat-datepicker-pack';
 import { DatePipe } from '@angular/common';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { map } from 'rxjs';
+import { debounceTime } from 'rxjs';
+
+const DEBOUNCE_TIME_MS = 200;
 
 @Component({
   selector: 'app-root',
-  imports: [MdpUnixDatepicker],
+  imports: [MdpUnixDatepicker, MatFormFieldModule, ReactiveFormsModule],
   providers: [DatePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -17,22 +23,40 @@ export class AppComponent {
   datePipe = inject(DatePipe);
 
   // Output storage vars.
-  unixTimestampConversion!: string | null;
+  unixTimestampConversion!: string;
+
+  // Unix FC.
+  current = new Date().getTime().toString();
+  unixDateControl = new FormControl<string>(this.current, [Validators.required]);
+
+  constructor() {
+    this.unixDateControl.valueChanges.pipe(
+      debounceTime(DEBOUNCE_TIME_MS),
+      map((value: string | null) => value || '')
+    ).subscribe(dateStr =>
+      this.unixTimestampConversion = this._formatExampleOutput(dateStr)
+    );
+
+    // Convert initial values.
+    this._setInitialDates();
+  }
 
   /**
-   * Receives the output from UnixDatepicker component and sets the associated output variable.
-   * @param newDate Date object.
+   * Set initial demo values.
    */
-  unixOutput(newDate: Date): void {
-    this.unixTimestampConversion = this._formatExampleOutput(newDate);
+  private _setInitialDates(): void {
+    const initialUnixConversionStr = new Date(Number(this.unixDateControl.value)!).toString();
+    this.unixTimestampConversion = this._formatExampleOutput(initialUnixConversionStr);
   }
 
   /**
    * Format Date object input to look something like "2026-02-15 10:23:51.000".
    * @param date Date object.
-   * @returns Result of DatePipe transform.
+   * @returns Result of DatePipe transform or 'Invalid Date'.
    */
-  private _formatExampleOutput(date: Date): string | null {
-    return this.datePipe.transform(date, 'yyyy-MM-dd hh:mm:ss.SSS z', '+0');
+  private _formatExampleOutput(dateStr: string): string {
+    return this.unixDateControl.valid ?
+      this.datePipe.transform(dateStr, 'yyyy-MM-dd hh:mm:ss.SSS', '+0')! :
+      'Invalid Date';
   }
 }
