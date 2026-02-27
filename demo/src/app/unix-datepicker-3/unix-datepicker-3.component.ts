@@ -4,6 +4,10 @@ import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule, Vali
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
 
+// Invalid Date object to be returned on validation failure.
+// Prevents component from mistaking null for required validation.
+const INVALID_DATE = new Date(NaN);
+
 @Component({
   selector: 'app-unix-datepicker-3',
   imports: [ReactiveFormsModule],
@@ -21,7 +25,7 @@ export class UnixDatepicker3Component implements ControlValueAccessor, MatFormFi
 
   // Internal component vars.
   protected readonly internalControl = new FormControl<string>('', { nonNullable: true });
-  private _value: Date | null = null;
+  private _value = INVALID_DATE;
 
   // Component state vars.
   private _touched = false;
@@ -64,7 +68,7 @@ export class UnixDatepicker3Component implements ControlValueAccessor, MatFormFi
   readonly ngControl = inject(NgControl, { optional: true, self: true });
   readonly controlType = 'unix-datepicker';
 
-  get value(): Date | null {
+  get value(): Date {
     return this._value;
   }
   get empty(): boolean {
@@ -75,8 +79,6 @@ export class UnixDatepicker3Component implements ControlValueAccessor, MatFormFi
     return this.focused || !this.empty;
   }
   get errorState(): boolean {
-    // console.log('this.ngControl:', this.ngControl?.invalid);
-    // console.log('this._touched:', this._touched);
     return (this.ngControl?.invalid ?? false) && this._touched;
   }
 
@@ -121,16 +123,19 @@ export class UnixDatepicker3Component implements ControlValueAccessor, MatFormFi
 
   constructor() {
     this.internalControl.valueChanges.subscribe(value => {
-      const parsed = this._parse(value);
-      this._value = parsed;
-      this._onChange(parsed);
+      if (!value) {
+        this._onChange(null);
+      } else {
+        const parsed = this._parse(value);
+        this._value = parsed;
+        this._onChange(parsed ?? INVALID_DATE);
+      }
       this.stateChanges.next();
     });
 
     // Replace the provider from above with this.
     if (this.ngControl !== null) {
-      // Setting the value accessor directly (instead of using
-      // the providers) to avoid running into a circular import.
+      // Setting the value accessor directly (instead of using the providers) to avoid running into a circular import.
       this.ngControl.valueAccessor = this;
     }
   }
@@ -161,24 +166,22 @@ export class UnixDatepicker3Component implements ControlValueAccessor, MatFormFi
 
   private _validate(): ValidationErrors | null {
     const raw = this.internalControl.value;
-    if (!raw) return null; // empty is handled by Validators.required if needed
 
-    if (!this._isValidTimestampString(raw)) {
-      return { invalidTimestamp: { value: raw, hint: 'Must be a 10 or 13 digit number' } };
-    }
+    // empty is handled by Validators.required if needed
+    if (!raw) return null;
 
-    return null;
+    return this._isValidTimestampString(raw) ? INVALID_DATE : { invalidTimestamp: true };
   }
 
   /**
    * Parses user input into Number to create Date object.
    * Normalizes 10 digit strings, seconds, into 13 digits, milliseconds.
    * @param raw User input string.
-   * @returns A Date object or null.
+   * @returns A Date object: an invalid Date object on validation failure and a valid one on success.
    */
-  private _parse(raw: string): Date | null {
+  private _parse(raw: string): Date {
     if (!this._isValidTimestampString(raw)) {
-      return null;
+      return INVALID_DATE;
     }
 
     const num = Number(raw);
@@ -187,7 +190,7 @@ export class UnixDatepicker3Component implements ControlValueAccessor, MatFormFi
     const ms = (raw.length) === 10 ? num * 1000 : num;
     const date = new Date(ms);
 
-    return isNaN(date.getTime()) ? null : date;
+    return isNaN(date.getTime()) ? INVALID_DATE : date;
   }
 
   /**

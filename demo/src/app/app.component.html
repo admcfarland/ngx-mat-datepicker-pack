@@ -7,16 +7,18 @@
       </mdp-unix-datepicker> -->
       <mat-form-field class="form-field">
         <mat-label>Unix Timestamp</mat-label>
-        <app-unix-datepicker-3 [formControl]="dateControl"></app-unix-datepicker-3>
-        @if (dateControl.hasError('invalidTimestamp')) {
+        <app-unix-datepicker-3 [formControl]="unixDateControl"></app-unix-datepicker-3>
+        @if (unixDateControl.hasError('invalidTimestamp')) {
           <mat-error>Must be a 10 or 13 digit timestamp</mat-error>
+        }
+        @if (unixDateControl.hasError('required')) {
+          <mat-error>I am required</mat-error>
         }
         <mat-hint>Input 10 or 13 digit timestamps</mat-hint>
       </mat-form-field>
     </div>
     <div>
       <p>Converted date: {{ unixTimestampConversion }}</p>
-      <p>{{ dateControl.errors | json }}</p>
     </div>
   </div>
 </div>
