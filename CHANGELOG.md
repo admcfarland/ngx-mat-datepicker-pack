@@ -6,6 +6,23 @@
 
 
 
+## [1.1.0](https://github.com/admcfarland/ngx-mat-datepicker-pack/compare/v1.0.0...v1.1.0) (2026-02-27)
+
+
+### Features
+
+* **unix-datepicker:** implement MatFormFieldControl for UnixDatepicker ([5e3d413](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/5e3d41394e9c909c9c35d71e1198b2d17e52bdc7)), closes [#57](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/57)
+* **unixdatepicker3:** new unix datepicker input extending control value accessor interface ([ab1afa7](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/ab1afa764b0517c2465ed1b2ebec112bd866b2bf)), closes [#57](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/57)
+* **unixdatepicker:** fix placeholder and label overlap ([8882d9f](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/8882d9f08c5197ed18fdad8ecb97f65a81376fb6)), closes [#57](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/57)
+* **unixdatepicker:** fix required validation ([fe8d4a2](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/fe8d4a25922481d94c19b72e4442c2cd787af0d9)), closes [#57](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/57)
+* **unixdatepicker:** remove dateFormat and useGMT inputs ([81c7dab](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/81c7dabfab2579cc4b72171e87f1bfd10b20571c)), closes [#38](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/38)
+* **unixdatepicker:** set default component debounce to 0 ([6289806](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/62898061b14b9bfda8889b37d75f09a89d2278e3)), closes [#43](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/43)
+
+
+### Bug Fixes
+
+* **unixdatepicker:** fix error not updating based on immediate user input ([86e6f4a](https://github.com/admcfarland/ngx-mat-datepicker-pack/commit/86e6f4a18900184576361b4f1c7aa68221f0913e)), closes [#54](https://github.com/admcfarland/ngx-mat-datepicker-pack/issues/54)
+
 ## [1.0.0](https://github.com/admcfarland/ngx-mat-datepicker-pack/compare/v0.0.4...v1.0.0) (2026-02-13)
 
 
