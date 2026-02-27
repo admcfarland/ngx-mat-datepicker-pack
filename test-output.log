@@ -1,0 +1,5 @@
+npm error Missing script: "test"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /Users/jota/.npm/_logs/2026-02-27T07_21_20_255Z-debug-0.log
