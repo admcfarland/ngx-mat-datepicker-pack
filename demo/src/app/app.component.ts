@@ -3,15 +3,14 @@ import { MdpUnixDatepicker } from 'ngx-mat-datepicker-pack';
 import { DatePipe } from '@angular/common';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { UnixDatepicker3Component } from './unix-datepicker-3/unix-datepicker-3.component';
 import { map } from 'rxjs';
-// import { debounceTime } from 'rxjs';
+import { debounceTime } from 'rxjs';
 
-// const DEBOUNCE_TIME_MS = 0;
+const DEBOUNCE_TIME_MS = 200;
 
 @Component({
   selector: 'app-root',
-  imports: [MdpUnixDatepicker, MatFormFieldModule, ReactiveFormsModule, UnixDatepicker3Component],
+  imports: [MdpUnixDatepicker, MatFormFieldModule, ReactiveFormsModule],
   providers: [DatePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
@@ -32,6 +31,7 @@ export class AppComponent {
 
   constructor() {
     this.unixDateControl.valueChanges.pipe(
+      debounceTime(DEBOUNCE_TIME_MS),
       map((value: string | null) => value || '')
     ).subscribe(dateStr =>
       this.unixTimestampConversion = this._formatExampleOutput(dateStr)

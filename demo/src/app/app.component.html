@@ -2,12 +2,9 @@
   <div>
     <p>UNIX CONVERSION EXAMPLE</p>
     <div>
-      <!-- <mdp-unix-datepicker
-        (unixDateOutput)="unixOutput($event)">
-      </mdp-unix-datepicker> -->
       <mat-form-field class="form-field">
         <mat-label>Unix Timestamp</mat-label>
-        <app-unix-datepicker-3 [formControl]="unixDateControl"></app-unix-datepicker-3>
+        <mdp-unix-datepicker [formControl]="unixDateControl"></mdp-unix-datepicker>
         @if (unixDateControl.hasError('invalidTimestamp')) {
           <mat-error>Must be a 10 or 13 digit timestamp</mat-error>
         }
