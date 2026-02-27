@@ -1,5 +1,5 @@
 import { FocusMonitor } from '@angular/cdk/a11y';
-import { Component, ElementRef, inject, Input, OnDestroy, ViewChild, OnInit } from '@angular/core';
+import { Component, ElementRef, inject, Input, OnDestroy, ViewChild, OnInit, HostBinding } from '@angular/core';
 import { ControlValueAccessor, FormControl, NgControl, ReactiveFormsModule, ValidationErrors } from '@angular/forms';
 import { MatFormFieldControl } from '@angular/material/form-field';
 import { Subject } from 'rxjs';
@@ -70,6 +70,7 @@ export class UnixDatepicker3Component implements ControlValueAccessor, MatFormFi
   get empty(): boolean {
     return this.internalControl.value.length === 0;
   }
+  @HostBinding('class.floating')
   get shouldLabelFloat(): boolean {
     return this.focused || !this.empty;
   }

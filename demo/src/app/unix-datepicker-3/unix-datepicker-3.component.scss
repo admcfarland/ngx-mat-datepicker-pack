@@ -5,4 +5,14 @@ input {
   outline: none;
   font: inherit;
   color: currentColor;
+  width: 100%;
+}
+
+:host {
+  opacity: 0;
+  transition: opacity 200ms;
+}
+
+:host.floating {
+  opacity: 1;
 }
